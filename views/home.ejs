@@ -2,11 +2,18 @@
 
 <h1>Home</h1>
 <p><%= homeInfo %></p>
-
+<a href="/compose" class="btn btn-primary ">Add Post</a>
 <% for(let i = 0; i < posts.length; i++) { %>
 
   <h1><%= posts[i].titlePost %></h1>
-  <p><%= posts[i].postBody %></p>
+  <%if (posts[i].postBody.length > 100) {%>
+    <%const max = 100;%>
+    <%const finalBody = posts[i].postBody.substring(0,max) + "...";%>
+    
+    <p><%= finalBody %> <a href="/posts/<%=posts[i].titlePost%>">Read More</a> </p>
+  <%} else {%>
+    <p><%= posts[i].postBody %></p>
+  <%}%>
 
 <%} %>
 

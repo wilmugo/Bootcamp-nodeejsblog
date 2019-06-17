@@ -1,4 +1,5 @@
 const express = require("express");
+const _ = require('lodash');
 const ejs = require("ejs");
 const morgan = require("morgan");
 const content = require("./content");
@@ -47,6 +48,16 @@ app.post('/compose', (req, res) => {
   res.redirect('/');
 })
 
+app.get('/posts/:name', (req, res) => {
+  const { name } = req.params;
+  const item = posts.find( post => _.lowerCase(post.titlePost) === _.lowerCase(name) );
+   
+  if (item !== undefined) {
+    res.render("post", { item: item });
+  } else {
+    res.render("post", { item: { titlePost: "Error", postBody: "El post no existe" }});
+  }
+});
 
 
 
